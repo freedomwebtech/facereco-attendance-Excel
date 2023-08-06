@@ -5,7 +5,7 @@ from datetime import datetime
 import cv2
 import os
 import openpyxl
-from datetime import datetime
+
 
 now = datetime.now()
 
