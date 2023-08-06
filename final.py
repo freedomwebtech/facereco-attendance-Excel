@@ -51,6 +51,25 @@ def is_username_unique(sheet, username):
             return False
     return True
 
+def is_late_or_ontime(current_time_str, target_time_str, lateness_threshold_minutes):
+    try:
+        # Parse the current time and target time strings into datetime objects
+        current_time = datetime.strptime(current_time_str, '%H:%M')
+        target_time = datetime.strptime(target_time_str, '%H:%M')
+
+        # Calculate the time difference between current time and target time
+        time_difference = current_time - target_time
+
+        # Convert the time difference to minutes
+        lateness_minutes = time_difference.total_seconds() / 60
+
+        # Check if the lateness is greater than or equal to the specified threshold
+        if lateness_minutes >= lateness_threshold_minutes:
+            return "Late"
+        else:
+            return "On Time"
+    except ValueError:
+        return "Invalid time format. Use 'HH:MM' format (e.g., '13:45')."
 
 def main(user_input):
     workbook, sheet = create_or_open_workbook()
@@ -82,25 +101,6 @@ def main(user_input):
     else:
             print("Username already exists. Please enter a unique username.")
 
-def is_late_or_ontime(current_time_str, target_time_str, lateness_threshold_minutes):
-    try:
-        # Parse the current time and target time strings into datetime objects
-        current_time = datetime.strptime(current_time_str, '%H:%M')
-        target_time = datetime.strptime(target_time_str, '%H:%M')
-
-        # Calculate the time difference between current time and target time
-        time_difference = current_time - target_time
-
-        # Convert the time difference to minutes
-        lateness_minutes = time_difference.total_seconds() / 60
-
-        # Check if the lateness is greater than or equal to the specified threshold
-        if lateness_minutes >= lateness_threshold_minutes:
-            return "Late"
-        else:
-            return "On Time"
-    except ValueError:
-        return "Invalid time format. Use 'HH:MM' format (e.g., '13:45')."
 
 
     
